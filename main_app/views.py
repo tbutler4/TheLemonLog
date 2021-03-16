@@ -17,6 +17,26 @@ def home(request):
   reviews = Review.objects.all()
   return render(request, 'home.html', {'reviews':reviews})
 
+
+# #####################################
+# User Sign Up/ Profile-related routes
+#######################################
+def signup(request):
+  error_message =''
+  if request.method=="POST":
+    form = UserCreationForm(request.POST)
+    if form.is_valid():
+      user = form.save()
+      photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
+      photo.save()
+      login(request, user)
+      return redirect('profile')
+    else:
+      error_message = 'Invalid sign up - try again'
+  form = UserCreationForm()
+  context = {'form':form, 'error_message': error_message}
+  return render(request, 'registration/signup.html', context)
+
 @login_required
 def profile(request):
   try:
@@ -25,6 +45,22 @@ def profile(request):
     photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=request.user)
   return render(request, 'user/profile.html', {'photo':photo})
 
+@login_required
+def edit_profile(request, user_id):
+  user = User.objects.get(id=user_id)
+  user_form = EditUserForm(request.POST or None, instance = user)
+  if request.POST and user_form.is_valid():
+    user_form.save()
+    return redirect('profile')
+  else:
+    return render(request, 'user/edit.html', {'user':user, 'user_form': user_form})
+
+@login_required
+def show_my_reviews(request):
+  reviews = Review.objects.filter(user=request.user)
+  return render(request, 'user/user_review.html', {'reviews':reviews})
+
+@login_required
 def add_user_photo(request, user_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
@@ -43,63 +79,42 @@ def add_user_photo(request, user_id):
           print('An error occurred uploading file to S3')
   return redirect('profile')
 
-def edit_profile(request, user_id):
-  user = User.objects.get(id=user_id)
-  user_form = EditUserForm(request.POST or None, instance = user)
-  if request.POST and user_form.is_valid():
-    user_form.save()
-    return redirect('profile')
-  else:
-    return render(request, 'user/edit.html', {'user':user, 'user_form': user_form})
-
-def show_my_reviews(request):
-  reviews = Review.objects.filter(user=request.user)
-  return render(request, 'user/user_review.html', {'reviews':reviews})
-
-<<<<<<< HEAD
+# #####################################
+# Reviews/Comment Routes
+#######################################
 def review_detail(request, review_id):
   review = Review.objects.get(id=review_id)
-  # try:
-  #   comments = Comment.objects.get(review_id= review_id)
-  # except: 
-  #   comments = []
+  try:
+    comments = Comment.objects.get(review_id= review_id)
+  except: 
+    comments = []
   comment_form = CommentForm()
-  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form })
+  print(comments)
+  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form , 'comments':comments})
 
 def add_comment(request, review_id):
-  if request.method=="POST":
-    comment_form = CommentForm(request.POST)
-    if comment_form.is_valid():
+  comment_form=CommentForm(request.POST or None)
+  review = Review.objects.get(id=review_id)
+  if request.POST and comment_form.is_valid():
       comment = comment_form.save(commit=False)
       comment.user_id = request.user.id
       comment.review_id = review_id
       comment.save()
+      return redirect('review_detail', review_id)
   else:
-    comment_form=CommentForm()
-    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form})
-  return redirect('review_detail', review_id)
-=======
-def show_review(request, review_id):
-  # retrieve a single review using the ID
-  review = Review.objects.get(id=review_id)
-
-  return render(request, 'review.html', {'review':review})
+    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form, 'review':review})
   
->>>>>>> tb-architecture
 
-def signup(request):
-  error_message =''
-  if request.method=="POST":
-    form = UserCreationForm(request.POST)
-    if form.is_valid():
-      user = form.save()
-      photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
-      photo.save()
-      login(request, user)
-      return redirect('profile')
-    else:
-      error_message = 'Invalid sign up - try again'
+def edit_comment(request, review_id, comment_id):
+  review = Review.objects.get(id=review_id)
+  comment = Comment.objects.get(id=comment_id)
+  comment_form = CommentForm(request.POST or None, instance = comment)
+  if request.POST and comment_form.is_valid():
+    comment_form.save()
+    return redirect('review_detail', review_id=review_id)
+  else:
+    return render(request, 'comments_reviews/edit_comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
 
-  form = UserCreationForm()
-  context = {'form':form, 'error_message': error_message}
-  return render(request, 'registration/signup.html', context)
+def delete_comment(request, review_id, comment_id):
+  Comment.objects.get(id=comment_id).delete()
+  return redirect('review_detail', review_id=review_id)
