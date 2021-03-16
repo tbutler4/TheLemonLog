@@ -8,10 +8,10 @@ class Review(models.Model):
     description = models.TextField()
     product = models.CharField(max_length=100)
     rating = models.IntegerField()
-    date = models.DateField("Review Date")
-
+    date = models.DateTimeField("Review Date")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
-
+    class Meta:
+        ordering = ['-date']
     def __str__(self):
         return f"{self.title}, {self.photo}, {self.description},{self.product}, {self.rating}, {self.date}, {self.user}"
 

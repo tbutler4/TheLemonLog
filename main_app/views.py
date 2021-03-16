@@ -22,7 +22,10 @@ def home(request):
 
 @login_required
 def profile(request):
-  photo = UserPhoto.objects.get(user=request.user)
+  try:
+    photo = UserPhoto.objects.get(user=request.user)
+  except: 
+    photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=request.user)
   return render(request, 'user/profile.html', {'photo':photo})
 
 def add_user_photo(request, user_id):
@@ -55,6 +58,12 @@ def edit_profile(request, user_id):
 def show_reviews(request):
   reviews = Review.objects.filter(user=request.user)
   return render(request, 'user/user_review.html', {'reviews':reviews})
+
+def show_review(request, review_id):
+  # retrieve a single review using the ID
+  review = Review.objects.get(id=review_id)
+
+  return render(request, 'review.html', {'review':review})
   
 
 def signup(request):
