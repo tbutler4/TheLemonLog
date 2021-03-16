@@ -3,5 +3,6 @@
 <form action="{% url 'add_comment' review.id %}" method="post">
     {% csrf_token %}
     {{comment_form.as_p}}
+    <input type="submit" value="Add Comment">
 </form>
 {% endblock %}
