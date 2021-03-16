@@ -14,3 +14,8 @@ class EditUserForm(forms.ModelForm):
     class Meta:
         model= User
         fields = ['username', 'first_name', 'last_name']
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['comment_text']
