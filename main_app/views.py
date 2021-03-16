@@ -56,6 +56,7 @@ def show_my_reviews(request):
   reviews = Review.objects.filter(user=request.user)
   return render(request, 'user/user_review.html', {'reviews':reviews})
 
+<<<<<<< HEAD
 def review_detail(request, review_id):
   review = Review.objects.get(id=review_id)
   # try:
@@ -77,6 +78,14 @@ def add_comment(request, review_id):
     comment_form=CommentForm()
     return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form})
   return redirect('review_detail', review_id)
+=======
+def show_review(request, review_id):
+  # retrieve a single review using the ID
+  review = Review.objects.get(id=review_id)
+
+  return render(request, 'review.html', {'review':review})
+  
+>>>>>>> tb-architecture
 
 def signup(request):
   error_message =''

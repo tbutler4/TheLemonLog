@@ -1,0 +1,17 @@
+.container{
+  width: 100%;
+}
+.review__background__photo{
+  height: 333px;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: 50% -400%;
+}
+.review__title{
+  position: relative;
+  top: 40%;
+  color: white;
+  font-size: large;
+  padding: 10px;
+  text-align: center;
+}

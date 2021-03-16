@@ -13,10 +13,15 @@
                     <span class="card-title">{{review.title}}</span>
                 </div>
                 <div class="card-content">
+<<<<<<< HEAD
                     <p>{{review.description|truncatechars:1000}}</p>
                 </div>
                 <div class="card-action">
                     <a href="{% url 'review_detail' review.id%}">See more</a>
+=======
+                    <p>{{ review.description|slice:44 }}...</p>
+                    <a href="{% url 'show_review' review.id %}">Read More!?</a>
+>>>>>>> tb-architecture
                 </div>
             </div>
         </div>
