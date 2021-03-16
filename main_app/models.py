@@ -18,7 +18,7 @@ class Review(models.Model):
 class Comment(models.Model):
     comment_text = models.TextField()
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
-
+    
 
 class UserPhoto(models.Model):
     url = models.CharField(max_length=200)
