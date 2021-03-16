@@ -18,10 +18,14 @@ class Review(models.Model):
 class Comment(models.Model):
     comment_text = models.TextField()
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return f"User: {self.user.username}, Review: {self.review.title}, Comment: {self.comment_text}"
+    
 
 class UserPhoto(models.Model):
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
