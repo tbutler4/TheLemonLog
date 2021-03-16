@@ -1,18 +1,15 @@
+import uuid
+import boto3
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserPhoto, Review
+from .models import UserPhoto, Review, Comment
 from django.contrib.auth.models import User
-import uuid
-import boto3
-from .forms import EditUserForm
+from .forms import EditUserForm, CommentForm
 
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'lemonlog-tc'
-
-# Add the following import
-from django.http import HttpResponse
 
 
 # Define the home view
@@ -55,16 +52,40 @@ def edit_profile(request, user_id):
   else:
     return render(request, 'user/edit.html', {'user':user, 'user_form': user_form})
 
-def show_reviews(request):
+def show_my_reviews(request):
   reviews = Review.objects.filter(user=request.user)
   return render(request, 'user/user_review.html', {'reviews':reviews})
 
+<<<<<<< HEAD
+def review_detail(request, review_id):
+  review = Review.objects.get(id=review_id)
+  # try:
+  #   comments = Comment.objects.get(review_id= review_id)
+  # except: 
+  #   comments = []
+  comment_form = CommentForm()
+  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form })
+
+def add_comment(request, review_id):
+  if request.method=="POST":
+    comment_form = CommentForm(request.POST)
+    if comment_form.is_valid():
+      comment = comment_form.save(commit=False)
+      comment.user_id = request.user.id
+      comment.review_id = review_id
+      comment.save()
+  else:
+    comment_form=CommentForm()
+    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form})
+  return redirect('review_detail', review_id)
+=======
 def show_review(request, review_id):
   # retrieve a single review using the ID
   review = Review.objects.get(id=review_id)
 
   return render(request, 'review.html', {'review':review})
   
+>>>>>>> tb-architecture
 
 def signup(request):
   error_message =''

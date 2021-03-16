@@ -3,11 +3,17 @@ from . import views
 
 urlpatterns = [
   path('', views.home, name='home'),
+<<<<<<< HEAD
+  path('reviews/', views.show_my_reviews, name='show_my_reviews'),
+=======
   path('reviews/', views.show_reviews, name='show_reviews'),
   path('reviews/<int:review_id>/', views.show_review, name='show_review'),
+>>>>>>> tb-architecture
   path('profile/', views.profile, name="profile"),
   path('accounts/signup/', views.signup, name='signup'),
   path('profile/<int:user_id>/add_user_photo/', views.add_user_photo, name='add_user_photo'),
   path('profile/<int:user_id>/edit_profile/', views.edit_profile, name='edit_profile'),
+  path('reviews/<int:review_id>/', views.review_detail, name='review_detail'),
+  path('reviews/<int:review_id>/add_comment/', views.add_comment, name='add_comment'),
 ]
 
