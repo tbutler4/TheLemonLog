@@ -22,7 +22,8 @@ def home(request):
 
 @login_required
 def profile(request):
-  return render(request, 'profile.html')
+  photo = UserPhoto.objects.get(user=request.user)
+  return render(request, 'user/profile.html', {'photo':photo})
 
 def add_user_photo(request, user_id):
   photo_file = request.FILES.get('photo-file', None)
@@ -35,12 +36,12 @@ def add_user_photo(request, user_id):
           s3.upload_fileobj(photo_file, BUCKET, key)
           # build the full url string
           url = f"{S3_BASE_URL}{BUCKET}/{key}"
-          # we can assign to cat_id or cat (if you have a cat object)
-          photo = Photo(url=url, user_id=user_id)
+          photo = UserPhoto.objects.get(user=request.user)
+          photo.url = url
           photo.save()
       except:
           print('An error occurred uploading file to S3')
-  return redirect('profile', user_id=user_id)
+  return redirect('profile')
 
 def edit_profile(request, user_id):
   user = User.objects.get(id=user_id)
@@ -49,12 +50,11 @@ def edit_profile(request, user_id):
     user_form.save()
     return redirect('profile')
   else:
-    return render(request, 'edit.html', {'user':user, 'user_form': user_form})
+    return render(request, 'user/edit.html', {'user':user, 'user_form': user_form})
 
 def show_reviews(request):
   reviews = Review.objects.filter(user=request.user)
-  print(reviews)
-  return render(request, 'review.html', {'reviews':reviews})
+  return render(request, 'user/user_review.html', {'reviews':reviews})
   
 
 def signup(request):
@@ -63,6 +63,8 @@ def signup(request):
     form = UserCreationForm(request.POST)
     if form.is_valid():
       user = form.save()
+      photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
+      photo.save()
       login(request, user)
       return redirect('profile')
     else:

@@ -25,7 +25,7 @@ class Comment(models.Model):
     
 
 class UserPhoto(models.Model):
-    url = models.CharField(max_length=200)
+    url = models.CharField(max_length=500)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __str__(self):
