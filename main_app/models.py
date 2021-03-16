@@ -1,3 +1,35 @@
 from django.db import models
+from django.contrib.auth.models import User
 
 # Create your models here.
+class Review(models.Model):
+    title = models.CharField(max_length=100)
+    photo = models.CharField(max_length=100)
+    description = models.TextField()
+    product = models.CharField(max_length=100)
+    rating = models.IntegerField()
+    date = models.DateField("Review Date")
+
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.title}, {self.photo}, {self.description},{self.product}, {self.rating}, {self.date}, {self.user}"
+
+class Comment(models.Model):
+    comment_text = models.TextField()
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+
+
+class UserPhoto(models.Model):
+    url = models.CharField(max_length=200)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for user: {self.user_id} @{self.url}"
+
+class ReviewPhoto(models.Model):
+    url = models.CharField(max_length=200)
+    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"Photo for review: {self.review_id} @{self.url}"
