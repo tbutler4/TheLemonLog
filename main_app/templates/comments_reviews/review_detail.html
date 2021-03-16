@@ -1,8 +1,11 @@
 {% extends 'base.html' %}
 {% block content %}
 
+<div class="review__background__photo" style="background-image: url('{{review.photo}}');">
+  <div class="review__title">{{ review.title }}</div>
+</div>
+
 <div>
-    <img src="{{review.photo}}">
     <h1> {{review.title|title}} </h1>
     <h3>Author: {{review.user}}</h3>
     <h3>Product: {{review.product}}</h3>

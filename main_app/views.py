@@ -7,16 +7,12 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UserPhoto, Review, Comment
 from django.contrib.auth.models import User
 from .forms import EditUserForm, CommentForm
-
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'lemonlog-tc'
-
-
 # Define the home view
 def home(request):
   reviews = Review.objects.all()
   return render(request, 'home.html', {'reviews':reviews})
-
 @login_required
 def profile(request):
   try:
@@ -24,7 +20,6 @@ def profile(request):
   except: 
     photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=request.user)
   return render(request, 'user/profile.html', {'photo':photo})
-
 def add_user_photo(request, user_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
@@ -42,7 +37,6 @@ def add_user_photo(request, user_id):
       except:
           print('An error occurred uploading file to S3')
   return redirect('profile')
-
 def edit_profile(request, user_id):
   user = User.objects.get(id=user_id)
   user_form = EditUserForm(request.POST or None, instance = user)
@@ -51,12 +45,9 @@ def edit_profile(request, user_id):
     return redirect('profile')
   else:
     return render(request, 'user/edit.html', {'user':user, 'user_form': user_form})
-
 def show_my_reviews(request):
   reviews = Review.objects.filter(user=request.user)
   return render(request, 'user/user_review.html', {'reviews':reviews})
-
-<<<<<<< HEAD
 def review_detail(request, review_id):
   review = Review.objects.get(id=review_id)
   # try:
@@ -65,7 +56,6 @@ def review_detail(request, review_id):
   #   comments = []
   comment_form = CommentForm()
   return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form })
-
 def add_comment(request, review_id):
   if request.method=="POST":
     comment_form = CommentForm(request.POST)
@@ -78,15 +68,6 @@ def add_comment(request, review_id):
     comment_form=CommentForm()
     return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form})
   return redirect('review_detail', review_id)
-=======
-def show_review(request, review_id):
-  # retrieve a single review using the ID
-  review = Review.objects.get(id=review_id)
-
-  return render(request, 'review.html', {'review':review})
-  
->>>>>>> tb-architecture
-
 def signup(request):
   error_message =''
   if request.method=="POST":
@@ -99,7 +80,6 @@ def signup(request):
       return redirect('profile')
     else:
       error_message = 'Invalid sign up - try again'
-
   form = UserCreationForm()
   context = {'form':form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
