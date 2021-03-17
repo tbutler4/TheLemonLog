@@ -4,9 +4,10 @@
 <h1>Profile</h1>
 <p> Date joined: {{request.user.date_joined}}</p>
 <hr />
-
-<p>First name: {{ request.user.first_name }}</p>
-<p>Last name: {{request.user.last_name}}</p>
+{%if request.user.first_name and request.user.last_name%}
+    <p>First name: {{ request.user.first_name }}</p>
+    <p>Last name: {{request.user.last_name}}</p>
+{%endif%}
 
 <p>Profile Photo: </p>
 <div class="card-panel teal-text center-align">

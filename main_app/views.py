@@ -15,7 +15,7 @@ def home(request):
   return render(request, 'home.html', {'reviews':reviews})
 
 
-# #####################################
+#######################################
 # User Sign Up/ Profile-related routes
 #######################################
 def signup(request):
@@ -76,7 +76,7 @@ def add_user_photo(request, user_id):
           print('An error occurred uploading file to S3')
   return redirect('profile')
 
-# #####################################
+#######################################
 # Reviews/Comment Routes
 #######################################
 def review_detail(request, review_id):
@@ -86,9 +86,9 @@ def review_detail(request, review_id):
   except: 
     comments = []
   comment_form = CommentForm()
-  print(comments)
   return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form , 'comments':comments})
 
+@login_required
 def add_comment(request, review_id):
   comment_form=CommentForm(request.POST or None)
   review = Review.objects.get(id=review_id)
@@ -102,6 +102,7 @@ def add_comment(request, review_id):
     return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form, 'review':review})
   
 
+@login_required
 def edit_comment(request, review_id, comment_id):
   review = Review.objects.get(id=review_id)
   comment = Comment.objects.get(id=comment_id)
@@ -112,6 +113,7 @@ def edit_comment(request, review_id, comment_id):
   else:
     return render(request, 'comments_reviews/edit_comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
 
+@login_required
 def delete_comment(request, review_id, comment_id):
   Comment.objects.get(id=comment_id).delete()
   return redirect('review_detail', review_id=review_id)
