@@ -86,7 +86,6 @@ def review_detail(request, review_id):
   except: 
     comments = []
   comment_form = CommentForm()
-  print(comments)
   return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form , 'comments':comments})
 
 @login_required

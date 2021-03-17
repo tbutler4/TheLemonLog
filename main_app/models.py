@@ -9,7 +9,6 @@ class Review(models.Model):
     description = models.TextField()
     product = models.CharField(max_length=100)
     rating = models.IntegerField()
-    slug=models.SlugField()
     date = models.DateTimeField("Review Date")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
