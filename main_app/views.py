@@ -1,14 +1,24 @@
 import uuid
 import boto3
+import os
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import UserPhoto, Review, Comment
 from django.contrib.auth.models import User
-from .forms import EditUserForm, CommentForm
+from .models import UserPhoto, Review, Comment
+from .forms import EditUserForm, CommentForm, UserForm
+
+# Amazon AWS info
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'lemonlog-tc'
+
+s3 = boto3.client(
+  's3',
+  aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
+  aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
+)
+
 # Define the home view
 def home(request):
   reviews = Review.objects.all()
@@ -21,7 +31,7 @@ def home(request):
 def signup(request):
   error_message =''
   if request.method=="POST":
-    form = UserCreationForm(request.POST)
+    form = UserForm(request.POST)
     if form.is_valid():
       user = form.save()
       photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
@@ -30,7 +40,7 @@ def signup(request):
       return redirect('profile')
     else:
       error_message = 'Invalid sign up - try again'
-  form = UserCreationForm()
+  form = UserForm()
   context = {'form':form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
@@ -61,7 +71,6 @@ def show_my_reviews(request):
 def add_user_photo(request, user_id):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
-      s3 = boto3.client('s3')
       # need a unique "key" for S3 / needs image file extension too
       key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
       # just in case something goes wrong
