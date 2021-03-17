@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Home</h1>
+<hr />
+
+<div class="row">
+    {% for review in reviews%}
+        <div class="col s12 m7">
+            <div class="card">
+                <div class="card-image">
+                    <img src={{review.photo}}>
+                    <span class="card-title">{{review.title}}</span>
+                </div>
+                <div class="card-content">
+                    <p>{{ review.description|slice:44 }}...</p>
+                </div>
+                <div class="card-action">
+                    <a href="{% url 'review_detail' review.id %}">Read More!?</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+    
+    
+
+
+{% endblock %}
