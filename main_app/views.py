@@ -7,11 +7,8 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import UserPhoto, Review, Comment
 from django.contrib.auth.models import User
 from .forms import EditUserForm, CommentForm
-
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'lemonlog-tc'
-
-
 # Define the home view
 def home(request):
   reviews = Review.objects.all()
