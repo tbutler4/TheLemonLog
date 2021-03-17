@@ -11,7 +11,12 @@
   position: relative;
   top: 40%;
   color: white;
-  font-size: large;
+  font-size: 77px;
   padding: 10px;
   text-align: center;
+}
+.review__title p{
+  width: 50%;
+  margin: auto;
+  background-color: rgba(0, 0, 0, 0.2);;
 }
