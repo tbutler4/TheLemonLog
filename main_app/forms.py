@@ -41,6 +41,7 @@ class EditUserForm(forms.ModelForm):
 
 
 class CommentForm(forms.ModelForm):
+    comment_text = forms.CharField(label='', widget=forms.TextInput(attrs={'placeholder': 'Enter Comment'}))
     class Meta:
         model = Comment
         fields = ['comment_text']
