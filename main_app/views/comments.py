@@ -25,7 +25,7 @@ def add_comment(request, review_id):
       return redirect('review_detail', review_id)
   else:
     error_message="Something went wrong with commenting, please try again"
-    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form, 'review':review, 'error':error_message})
+    return render(request, 'comments/new_comment.html', {'comment_form':comment_form, 'review':review, 'error':error_message})
   
 
 @login_required
@@ -37,7 +37,7 @@ def edit_comment(request, review_id, comment_id):
     comment_form.save()
     return redirect('review_detail', review_id=review_id)
   else:
-    return render(request, 'comments_reviews/edit_comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
+    return render(request, 'comments/edit_comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
 
 @login_required
 def delete_comment(request, review_id, comment_id):

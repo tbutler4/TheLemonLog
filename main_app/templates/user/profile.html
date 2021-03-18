@@ -54,8 +54,12 @@
             </div>    
         </div>
         <div style='margin-top:2rem;display:flex;flex-direction:column;align-items:center;'>
-            <a href="{% url 'edit_profile' %}" class="waves-effect waves-light btn-large" >Edit Info</a>
-            <a href="{% url 'show_my_reviews' %}" class="waves-effect waves-light btn-large" style='margin-top:1rem;'> My reviews </a>
+            {% if request.user.id == user.id%}
+                <a href="{% url 'edit_profile' %}" class="waves-effect waves-light btn-large" >Edit Info</a>
+                    {% if request.user.is_staff %}
+                        <a href="{% url 'show_my_reviews' %}" class="waves-effect waves-light btn-large" style='margin-top:1rem;'> My reviews </a>
+                    {% endif %}
+            {% endif %}
         </div>
     </div>
 </div>

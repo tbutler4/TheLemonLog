@@ -29,7 +29,7 @@ def signup(request):
     form = UserForm(request.POST)
     if form.is_valid():
       user = form.save()
-      photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
+      photo = UserPhoto(url='https://lemonlog-tc.s3-us-west-1.amazonaws.com/lemon.png', user=user)
       photo.save()
       login(request, user)
       return redirect('profile', request.user.id)
@@ -45,7 +45,7 @@ def profile(request, user_id):
   try:
     photo = UserPhoto.objects.get(user=user)
   except: 
-    photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=request.user)
+    photo = UserPhoto(url='https://lemonlog-tc.s3-us-west-1.amazonaws.com/lemon.png', user=request.user)
   return render(request, 'user/profile.html', {'photo':photo, 'user':user})
 
 @login_required
@@ -73,9 +73,12 @@ def add_user_photo(request):
           s3.upload_fileobj(photo_file, BUCKET, key)
           # build the full url string
           url = f"{S3_BASE_URL}{BUCKET}/{key}"
-          photo = UserPhoto.objects.get(user=request.user)
-          photo.url = url
-          photo.save()
       except:
           print('An error occurred uploading file to S3')
+      try:
+        photo = UserPhoto.objects.get(user=request.user)
+      except:
+        photo= UserPhoto(url=url, user=request.user)
+      photo.url = url
+      photo.save()
   return redirect('profile', request.user.id)
