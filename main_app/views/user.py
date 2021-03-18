@@ -4,12 +4,13 @@ import os
 from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
-from .models import UserPhoto, Review, Comment
-from .forms import EditUserForm, CommentForm, UserForm
+from main_app.models import UserPhoto, Review 
+from main_app.forms import EditUserForm, UserForm
 
+#######################################
 # Amazon AWS info
+#######################################
 S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
 BUCKET = 'lemonlog-tc'
 
@@ -18,12 +19,6 @@ s3 = boto3.client(
   aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
   aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
 )
-
-# Define the home view
-def home(request):
-  reviews = Review.objects.all()
-  return render(request, 'home.html', {'reviews':reviews})
-
 
 #######################################
 # User Sign Up/ Profile-related routes
@@ -39,6 +34,7 @@ def signup(request):
       login(request, user)
       return redirect('profile')
     else:
+      print(form.error_messages)
       error_message = 'Invalid sign up - try again'
   form = UserForm()
   context = {'form':form, 'error_message': error_message}
@@ -84,45 +80,3 @@ def add_user_photo(request, user_id):
       except:
           print('An error occurred uploading file to S3')
   return redirect('profile')
-
-#######################################
-# Reviews/Comment Routes
-#######################################
-def review_detail(request, review_id):
-  review = Review.objects.get(id=review_id)
-  try:
-    comments = Comment.objects.get(review_id= review_id)
-  except: 
-    comments = []
-  comment_form = CommentForm()
-  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form , 'comments':comments})
-
-@login_required
-def add_comment(request, review_id):
-  comment_form=CommentForm(request.POST or None)
-  review = Review.objects.get(id=review_id)
-  if request.POST and comment_form.is_valid():
-      comment = comment_form.save(commit=False)
-      comment.user_id = request.user.id
-      comment.review_id = review_id
-      comment.save()
-      return redirect('review_detail', review_id)
-  else:
-    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form, 'review':review})
-  
-
-@login_required
-def edit_comment(request, review_id, comment_id):
-  review = Review.objects.get(id=review_id)
-  comment = Comment.objects.get(id=comment_id)
-  comment_form = CommentForm(request.POST or None, instance = comment)
-  if request.POST and comment_form.is_valid():
-    comment_form.save()
-    return redirect('review_detail', review_id=review_id)
-  else:
-    return render(request, 'comments_reviews/edit_comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
-
-@login_required
-def delete_comment(request, review_id, comment_id):
-  Comment.objects.get(id=comment_id).delete()
-  return redirect('review_detail', review_id=review_id)

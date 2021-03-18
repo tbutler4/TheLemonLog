@@ -17,7 +17,7 @@ class Review(models.Model):
         return f"{self.title}, {self.photo}, {self.description},{self.product}, {self.rating}, {self.date}, {self.user}"
 
 class Comment(models.Model):
-    comment_text = models.TextField()
+    comment_text = models.CharField(max_length=240)
     review = models.ForeignKey(Review, on_delete=models.CASCADE)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     date = models.DateTimeField("Comment Date", auto_now=True)
