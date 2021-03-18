@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.utils.text import slugify
 
 # Create your models here.
@@ -8,7 +9,7 @@ class Review(models.Model):
     photo = models.CharField(max_length=100)
     description = models.TextField()
     product = models.CharField(max_length=100)
-    rating = models.IntegerField()
+    rating = models.IntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
     date = models.DateTimeField("Review Date")
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:

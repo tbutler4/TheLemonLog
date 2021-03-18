@@ -63,6 +63,7 @@
                     <p id="comment__p"> {{comment.comment_text}}</p>
                 </div>
             </div>
+            {% if request.user.is_authenticated and request.user.id == comment.user_id%}
                 <div class="comment__buttons">
                     <a href="{% url 'edit_comment' review.id comment.id %}"><button class="uk-button uk-button-default uk-margin-small-right" id="comment__edit">Edit Comment</button></a>
                     <!-- This is a button toggling the modal -->
@@ -79,6 +80,7 @@
                         </p>
                     </div>
                 </div>
+            {% endif %}
         </div>
     </div>
     {% endfor %}
