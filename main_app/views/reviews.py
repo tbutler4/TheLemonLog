@@ -3,7 +3,7 @@ import boto3
 import os
 from django.shortcuts import render
 from django.contrib.auth.models import User
-from main_app.models import Review, Comment, UserPhoto
+from main_app.models import Review
 from main_app.forms import CommentForm
 
 #######################################
@@ -23,7 +23,6 @@ s3 = boto3.client(
 # Reviews Routes
 #######################################
 def review_detail(request, review_id):
-  photos = UserPhoto.objects.all()
   review = Review.objects.get(id=review_id)
   try:
     comments = Comment.objects.get(review_id= review_id)
