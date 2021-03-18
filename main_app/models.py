@@ -35,7 +35,7 @@ class UserPhoto(models.Model):
 
 class ReviewPhoto(models.Model):
     url = models.CharField(max_length=200)
-    review = models.ForeignKey(Review, on_delete=models.CASCADE)
+    review = models.OneToOneField(Review, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"Photo for review: {self.review_id} @{self.url}"

@@ -24,7 +24,8 @@ def add_comment(request, review_id):
       comment.save()
       return redirect('review_detail', review_id)
   else:
-    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form, 'review':review})
+    error_message="Something went wrong with commenting, please try again"
+    return render(request, 'comments_reviews/new_comment.html', {'comment_form':comment_form, 'review':review, 'error':error_message})
   
 
 @login_required

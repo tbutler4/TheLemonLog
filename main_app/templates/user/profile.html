@@ -26,9 +26,10 @@
             <input type="submit" class="btn" value="Upload Photo">
         </form>
     </div>
+    {% if request.user.id == user.id%}
+        <a href="{% url 'edit_profile' %}">Edit</a> {{value|linebreaks}}
+        <a href="{% url 'show_my_reviews' %}"> My reviews </a>
+    {% endif %}
 
-
-    <a href="{% url 'edit_profile' %}">Edit</a> {{value|linebreaks}}
-    <a href="{% url 'show_my_reviews' %}"> My reviews </a>
 {% endif %}
 {% endblock %}
