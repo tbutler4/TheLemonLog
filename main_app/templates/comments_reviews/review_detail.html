@@ -46,14 +46,10 @@
     <div class="comment__container">
         <div class='card-panel'>
                 <div class="comment__heading">
-                    {% for photo in photo %}
+                    {% for photo in photos %}
                         {% if photo.user_id == comment.user_id %}
                             <img id='img' src="{{photo.url}}" alt="profile-photo">
-                            {% for user in user %}
-                                {% if user.id == comment.user_id  %}
-                                    <p>{{user.username}}</p>
-                                {% endif %}
-                            {% endfor %}
+                            <p>{{comment.user.username}}</p>
                         {% endif %}
                     {% endfor %}
                 </div>
