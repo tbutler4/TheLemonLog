@@ -31,6 +31,27 @@
         <p> {{review.description}} </p>
     </div>
 </div>
+{% if request.user.is_authenticated and request.user.is_staff and request.user.id == review.user.id or request.user.is_superuser%}
+<div>
+    <a href="{% url 'edit_review' review.id%}">Edit Review</a>
+    <div class="">
+        <!-- This is a button toggling the modal -->
+        <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #modal-review" id="review__delete">Delete Review</button>
+    </div>
+    <!-- This is the modal -->
+    <div id="modal-review" uk-modal>
+        <div class="uk-modal-dialog uk-modal-body">
+            <h2 class="uk-modal-title">Warning</h2>
+            <p>Are you sure you wish to delete?</p>
+            <p class="uk-text-right">
+                <button class="uk-button uk-button-default uk-modal-close" type="button">Cancel</button>
+                <a href="{% url 'delete_review' review.id %}">Delete Review</a>
+            </p>
+        </div>
+    </div>
+</div>
+{%endif%}
+
 <div>
     <div class="comment__form">
         <form action="{% url 'add_comment' review.id %}" method="post">

@@ -1,8 +1,0 @@
-{% extends 'base.html'%}
-{% block content%}
-<form action="{% url 'edit_comment' review.id comment.id %}" method="post">
-    {% csrf_token %}
-    {{comment_form.as_p}}
-    <input type="submit" value="Edit Comment">
-</form>
-{% endblock %}
