@@ -32,7 +32,7 @@ def signup(request):
       photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
       photo.save()
       login(request, user)
-      return redirect('profile')
+      return redirect('profile', request.user.id)
     else:
       print(form.error_messages)
       error_message = 'Invalid sign up - try again'
@@ -40,23 +40,22 @@ def signup(request):
   context = {'form':form, 'error_message': error_message}
   return render(request, 'registration/signup.html', context)
 
-@login_required
-def profile(request):
+def profile(request, user_id):
+  user = User.objects.get(id=user_id)
   try:
-    photo = UserPhoto.objects.get(user=request.user)
+    photo = UserPhoto.objects.get(user=user)
   except: 
     photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=request.user)
-  return render(request, 'user/profile.html', {'photo':photo})
+  return render(request, 'user/profile.html', {'photo':photo, 'user':user})
 
 @login_required
-def edit_profile(request, user_id):
-  user = User.objects.get(id=user_id)
-  user_form = EditUserForm(request.POST or None, instance = user)
+def edit_profile(request):
+  user_form = EditUserForm(request.POST or None, instance = request.user)
   if request.POST and user_form.is_valid():
     user_form.save()
-    return redirect('profile')
+    return redirect('profile', request.user.id)
   else:
-    return render(request, 'user/edit.html', {'user':user, 'user_form': user_form})
+    return render(request, 'user/edit.html', {'user_form': user_form})
 
 @login_required
 def show_my_reviews(request):
@@ -64,7 +63,7 @@ def show_my_reviews(request):
   return render(request, 'user/user_review.html', {'reviews':reviews})
 
 @login_required
-def add_user_photo(request, user_id):
+def add_user_photo(request):
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
       # need a unique "key" for S3 / needs image file extension too
@@ -79,4 +78,4 @@ def add_user_photo(request, user_id):
           photo.save()
       except:
           print('An error occurred uploading file to S3')
-  return redirect('profile')
+  return redirect('profile', request.user.id)

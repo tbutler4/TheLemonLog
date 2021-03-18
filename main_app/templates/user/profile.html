@@ -1,33 +1,35 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Profile</h1>
-<p> Date joined: {{request.user.date_joined}}</p>
+<h1>Profile of {{user.username}}</h1>
+<p> Date joined: {{user.date_joined|date:"M d Y"}}</p>
 <hr />
-{%if request.user.first_name and request.user.last_name%}
-    <p>First name: {{ request.user.first_name }}</p>
-    <p>Last name: {{request.user.last_name}}</p>
-{%endif%}
 
-<p>Profile Photo: </p>
-<div class="card-panel teal-text center-align">
-    <img src="{{photo.url}}">
-    {% if photo.url == "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"%}
-        {{value|linebreaks}}
-        No Photos Uploaded
-        {{value|linebreaks}}
+{% if request.user.is_authenticated %}
+    {%if request.user.first_name and request.user.last_name%}
+        <p>First name: {{ request.user.first_name }}</p>
+        <p>Last name: {{request.user.last_name}}</p>
+    {%endif%}
+
+    <p>Profile Photo: </p>
+    <div class="card-panel teal-text center-align">
+        <img src="{{photo.url}}">
+        {% if photo.url == "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"%}
+            {{value|linebreaks}}
+            No Photos Uploaded
+            {{value|linebreaks}}
+        {% endif %}
+        <form action="{% url 'add_user_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
+            {% csrf_token %}
+            <input type="file" name="photo-file">
+            <br><br>
+            <input type="submit" class="btn" value="Upload Photo">
+        </form>
+    </div>
+    {% if request.user.id == user.id%}
+        <a href="{% url 'edit_profile' %}">Edit</a> {{value|linebreaks}}
+        <a href="{% url 'show_my_reviews' %}"> My reviews </a>
     {% endif %}
-    <form action="{% url 'add_user_photo' user.id %}" enctype="multipart/form-data" method="POST" class="card-panel">
-        {% csrf_token %}
-        <input type="file" name="photo-file">
-        <br><br>
-        <input type="submit" class="btn" value="Upload Photo">
-    </form>
 
-</div>
-
-
-<a href="{% url 'edit_profile' user.id %}">Edit</a> {{value|linebreaks}}
-<a href="{% url 'show_my_reviews' %}"> My reviews </a>
-
+{% endif %}
 {% endblock %}

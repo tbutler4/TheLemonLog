@@ -2,8 +2,7 @@ import uuid
 import boto3
 import os
 from django.shortcuts import render
-from django.contrib.auth.models import User
-from main_app.models import Review, Comment
+from main_app.models import Review
 from main_app.forms import CommentForm
 
 #######################################
@@ -23,14 +22,8 @@ s3 = boto3.client(
 # Reviews Routes
 #######################################
 def review_detail(request, review_id):
-  user = User.objects.all()
-  photo = UserPhoto.objects.all()
   review = Review.objects.get(id=review_id)
-  try:
-    comments = Comment.objects.get(review_id= review_id)
-  except: 
-    comments = []
   comment_form = CommentForm()
-  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form , 'comments':comments, 'photo':photo, 'user':user})
+  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form})
 
 
