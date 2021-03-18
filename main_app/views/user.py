@@ -32,7 +32,7 @@ def signup(request):
       photo = UserPhoto(url='https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg', user=user)
       photo.save()
       login(request, user)
-      return redirect('profile')
+      return redirect('profile', request.user.id)
     else:
       print(form.error_messages)
       error_message = 'Invalid sign up - try again'
@@ -53,7 +53,7 @@ def edit_profile(request):
   user_form = EditUserForm(request.POST or None, instance = request.user)
   if request.POST and user_form.is_valid():
     user_form.save()
-    return redirect('profile')
+    return redirect('profile', request.user.id)
   else:
     return render(request, 'user/edit.html', {'user_form': user_form})
 
@@ -78,4 +78,4 @@ def add_user_photo(request):
           photo.save()
       except:
           print('An error occurred uploading file to S3')
-  return redirect('profile')
+  return redirect('profile', request.user.id)

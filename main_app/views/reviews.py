@@ -30,6 +30,6 @@ def review_detail(request, review_id):
   except: 
     comments = []
   comment_form = CommentForm()
-  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form , 'comments':comments, 'photos':photos})
+  return render(request, 'comments_reviews/review_detail.html', {'review':review, 'comment_form':comment_form})
 
 
