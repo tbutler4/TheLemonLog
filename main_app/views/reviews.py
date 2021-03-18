@@ -2,7 +2,8 @@ import uuid
 import boto3
 import os
 from django.shortcuts import render
-from main_app.models import Review
+from django.contrib.auth.models import User
+from main_app.models import Review, Comment, UserPhoto
 from main_app.forms import CommentForm
 
 #######################################

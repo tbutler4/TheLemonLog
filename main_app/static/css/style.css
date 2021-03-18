@@ -9,7 +9,7 @@ body {
   width: 100%;
   background-color: white;
 }
-
+/* Home page  */
 .review__grid {
   display: grid;
   grid-auto-flow: dense;
@@ -32,6 +32,8 @@ body {
   background-position: 50% -200%;
   box-shadow: 0px 10px 8px rgba(68, 68, 68, 0.6);
 }
+
+/* review and comment section */
 .review__name{
   position: relative;
   top: 40%;
@@ -39,7 +41,7 @@ body {
   font-size: 77px;
   padding: 10px;
   text-align: center;
-  font-family: papyrus;
+  font-family: copperplate;
 }
 .review__name p{
   width: 50%;
@@ -80,7 +82,6 @@ body {
   padding-left: 5em;
   padding-right: 5em;
   margin-bottom: 5em;
-  line-height: 2.5;
 }
 
 .comment__form {
@@ -131,4 +132,11 @@ body {
 #comment__delete {
   background-color:#f2ea09;
   color: black;
+}
+
+/* Profile Page */
+.profile__container{
+  margin: auto;
+  width: 50%;
+  padding-bottom: 5rem;
 }

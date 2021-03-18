@@ -1,35 +1,63 @@
 {% extends 'base.html' %}
 {% block content %}
 
-<h1>Profile of {{user.username}}</h1>
-<p> Date joined: {{user.date_joined|date:"M d Y"}}</p>
-<hr />
-
-{% if request.user.is_authenticated %}
-    {%if request.user.first_name and request.user.last_name%}
-        <p>First name: {{ request.user.first_name }}</p>
-        <p>Last name: {{request.user.last_name}}</p>
-    {%endif%}
-
-    <p>Profile Photo: </p>
-    <div class="card-panel teal-text center-align">
-        <img src="{{photo.url}}">
-        {% if photo.url == "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"%}
-            {{value|linebreaks}}
-            No Photos Uploaded
-            {{value|linebreaks}}
-        {% endif %}
-        <form action="{% url 'add_user_photo' %}" enctype="multipart/form-data" method="POST" class="card-panel">
-            {% csrf_token %}
-            <input type="file" name="photo-file">
-            <br><br>
-            <input type="submit" class="btn" value="Upload Photo">
-        </form>
+<h1>Profile</h1>
+<div class="profile__container">
+    <div class="card" style='border-radius: 30px;box-shadow: -1px -1px 8px 10px #888888;padding:2rem;'>
+        <div style='display:flex;justify-content:center;'>
+            <img style='max-height:50vh;' src="{{photo.url}}">
+        </div>
+            {% if photo.url == "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"%}
+                {{value|linebreaks}}
+                No Photos Uploaded
+                {{value|linebreaks}}
+            {% endif %}
+            <form action="{% url 'add_user_photo' %}" enctype="multipart/form-data" method="POST" >
+                {% csrf_token %}
+                <div >
+                    <div style='font-weight:900;font-size:22px;text-align:left;margin-left:3.5rem;margin-bottom:1rem;'>
+                        <b>Edit Photo</b>
+                    </div>
+                    <div style='display:flex;justify-content: center;align-items:baseline;'>
+                        <div style='width:14rem;text-align:center;'>
+                            <input type="file" name="photo-file" >
+                        </div>
+                        <div style='width:15rem;text-align:center;'>
+                            <input type="submit" class="btn" value="Upload Photo">        
+                        </div>
+                    </div>
+                </div>
+            </form>
+        <div style='display:flex;justify-content:space-evenly;margin-top:3rem;'>
+            <div style='font-weight:900;font-size:22px'>
+                <b>My Profile</b>
+            </div>
+            <div style='display:flex;'>
+                <div style='margin-right:1rem;font-size:14px;display:flex;flex-direction:column;'>
+                    <b> Date joined:</b>
+                    <b> Last Login:</b>
+                </div> 
+                <div style='font-size:14px;display:flex;flex-direction:column;'>
+                    <b>{{request.user.date_joined}}</b>
+                    <b>{{request.user.last_login}}</b>
+                </div> 
+            </div>
+        </div>
+        <div style='margin-top:4rem;display:flex;justify-content:space-evenly;'>
+            <div style='width:10rem;text-align:center;'>
+                <b>{{request.user}}</b>
+                <hr>
+            </div>
+            <div style='width:10rem;text-align:center;'>
+            <b>{{request.user.email}}</b> 
+            <hr>
+            </div>    
+        </div>
+        <div style='margin-top:2rem;display:flex;flex-direction:column;align-items:center;'>
+            <a href="{% url 'edit_profile' %}" class="waves-effect waves-light btn-large" >Edit Info</a>
+            <a href="{% url 'show_my_reviews' %}" class="waves-effect waves-light btn-large" style='margin-top:1rem;'> My reviews </a>
+        </div>
     </div>
-    {% if request.user.id == user.id%}
-        <a href="{% url 'edit_profile' %}">Edit</a> {{value|linebreaks}}
-        <a href="{% url 'show_my_reviews' %}"> My reviews </a>
-    {% endif %}
+</div>
 
-{% endif %}
 {% endblock %}
