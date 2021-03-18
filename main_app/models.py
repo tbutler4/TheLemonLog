@@ -6,11 +6,11 @@ from django.utils.text import slugify
 # Create your models here.
 class Review(models.Model):
     title = models.CharField(max_length=100)
-    photo = models.CharField(max_length=100)
+    photo = models.CharField(max_length=300)
     description = models.TextField()
     product = models.CharField(max_length=100)
     rating = models.IntegerField(default=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
-    date = models.DateTimeField("Review Date")
+    date = models.DateTimeField("Review Date", auto_now=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     class Meta:
         ordering = ['-date']
@@ -33,9 +33,3 @@ class UserPhoto(models.Model):
     def __str__(self):
         return f"Photo for user: {self.user_id} @{self.url}"
 
-class ReviewPhoto(models.Model):
-    url = models.CharField(max_length=200)
-    review = models.OneToOneField(Review, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return f"Photo for review: {self.review_id} @{self.url}"

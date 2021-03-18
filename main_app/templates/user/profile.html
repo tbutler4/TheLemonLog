@@ -28,8 +28,9 @@
     </div>
     {% if request.user.id == user.id%}
         <a href="{% url 'edit_profile' %}">Edit</a> {{value|linebreaks}}
-        <a href="{% url 'show_my_reviews' %}"> My reviews </a>
+        {% if request.user.is_staff %}
+            <a href="{% url 'show_my_reviews' %}"> My reviews </a>
+        {% endif %}
     {% endif %}
-
 {% endif %}
 {% endblock %}

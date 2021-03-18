@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% block content%}
+{% if error %}
+    <p>{{error}}</p>
+{% endif %}
+<form action="{% url 'new_review' %}"enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{review_form.as_p}}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input type="submit" value="Add Review">
+</form>
+
+{% endblock %}

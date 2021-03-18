@@ -1,5 +1,8 @@
 {% extends 'base.html'%}
 {%block content%}
+
+<a href="{% url 'new_review' %}">Add New Review</a>
+
 <div class="row">
     {% for review in reviews%}
         <div class="col s12 m7">
