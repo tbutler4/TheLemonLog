@@ -4,13 +4,13 @@
 <h1>Home</h1>
 <hr />
 
-<div class="row">
+<div class="review__grid">
     {% for review in reviews%}
-        <div class="col s12 m7">
+        <div class="reviews__container">
             <div class="card">
                 <div class="card-image">
                     <img src={{review.photo}}>
-                    <span class="card-title">{{review.title}}</span>
+                    <span class="card-title">{{review.product}}</span>
                 </div>
                 <div class="card-content">
                     <p>{{ review.description|slice:44 }}...</p>
