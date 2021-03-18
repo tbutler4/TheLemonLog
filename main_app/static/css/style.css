@@ -1,22 +1,134 @@
+body {
+  background-image: url("https://image.shutterstock.com/image-illustration/white-hexagonal-tech-background-texture-600w-1363110086.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
 .container{
   width: 100%;
+  background-color: white;
 }
+
+.review__grid {
+  display: grid;
+  grid-auto-flow: dense;
+}
+
+.reviews__container:nth-child(odd) {
+  padding:1rem;
+  grid-column: 1;
+}
+
+.reviews__container:nth-child(even) {
+  padding:1rem;
+  grid-column: 2;
+}
+
 .review__background__photo{
   height: 333px;
   background-repeat: no-repeat;
   background-attachment: fixed;
-  background-position: 50% -400%;
+  background-position: 50% -200%;
+  box-shadow: 0px 10px 8px rgba(68, 68, 68, 0.6);
 }
-.review__title{
+.review__name{
   position: relative;
   top: 40%;
   color: white;
   font-size: 77px;
   padding: 10px;
   text-align: center;
+  font-family: papyrus;
 }
-.review__title p{
+.review__name p{
   width: 50%;
   margin: auto;
   background-color: rgba(0, 0, 0, 0.2);;
+}
+
+.review__details {
+  display: flex;
+  flex-direction: column;
+  font-family: copperplate;
+}
+
+.review__details hr{
+  width: 33vw;
+  margin-left: 30%;
+}
+
+.review__header {
+  margin-top: 3%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  align-items: baseline;
+}
+
+.review__title {
+  display: flex;
+  justify-content: center;
+  font-size: 33px; 
+  font-weight: 700;
+  text-align: center;
+  padding-left: 1em;
+  padding-right: 1em;
+}
+
+.review__description {
+  padding-left: 5em;
+  padding-right: 5em;
+  margin-bottom: 5em;
+  line-height: 2.5;
+}
+
+.comment__form {
+  padding-left: 5rem;
+  padding-right: 5rem;
+}
+
+.comment__container {
+  display: flex;
+  flex-direction: column;
+
+  margin-bottom: 1em;
+  border-radius: 10%;
+}
+
+.comment__heading {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+#img {
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  margin-right: 1em;
+}
+
+.comment {
+  padding: 1em;
+}
+
+.comment__text {
+  display: flex;
+  justify-content: center;
+}
+
+.comment__buttons {
+  display: flex;
+  justify-content: center;
+}
+
+#comment__edit {
+  background-color:#f2ea09;
+  color: black;
+}
+
+#comment__delete {
+  background-color:#f2ea09;
+  color: black;
 }
