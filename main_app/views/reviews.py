@@ -57,12 +57,9 @@ def edit_review(request, review_id):
     review_form = ReviewForm(request.POST or None, instance = review)
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
-        # need a unique "key" for S3 / needs image file extension too
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-        # just in case something goes wrong
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
-            # build the full url string
             url = f"{S3_BASE_URL}{BUCKET}/{key}"
         except:
             print('An error occurred uploading file to S3')
