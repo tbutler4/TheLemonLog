@@ -32,8 +32,8 @@
     </div>
 </div>
 {% if request.user.is_authenticated and request.user.is_staff and request.user.id == review.user.id or request.user.is_superuser%}
-<div>
-    <a href="{% url 'edit_review' review.id%}">Edit Review</a>
+<div class='review__edit__delete__buttons'>
+    <a href="{% url 'edit_review' review.id%}"><button class="uk-button uk-button-default uk-margin-small-right" type="button" >Edit Review</button></a>
     <div class="">
         <!-- This is a button toggling the modal -->
         <button class="uk-button uk-button-default uk-margin-small-right" type="button" uk-toggle="target: #modal-review" id="review__delete">Delete Review</button>
@@ -62,7 +62,8 @@
     </div>
 </div>
 
-<div class='card-panel'>
+<div class='card-panel' style='padding-bottom:3rem;'>
+    <p> Total Comments: {{ review.comment_set.all|length }}</p>
     {% for comment in review.comment_set.all%}    
         <div class="comment__container">
             <div class='card-panel'>

@@ -62,6 +62,23 @@
             {% endif %}
         </div>
     </div>
-</div>
 
+{% comment %} counting comments in review {% endcomment %}
+<div class="card" style='margin:auto;width:100%;'>
+    <h3>My Comments:</h3>
+    {% for key, values in my_dict.items %}
+        <div class="reviews__container">
+            <div class="card">
+                <span class="card-title"> Review: {{key}}</span>
+                {% for value in values.comments %}
+                    <div class="card" style='margin:auto;width:90%;'>
+                        <p id="comment__p"> {{value}}</p>
+                    </div>
+                {% endfor %}
+                <a href="{% url 'review_detail' values.comment_review_id %}">View</a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+</div>
 {% endblock %}
