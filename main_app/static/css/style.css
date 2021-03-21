@@ -4,10 +4,12 @@ body {
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  height: 80vmax;
 }
 .container{
   width: 100%;
   background-color: white;
+  height: 80vmax;
 }
 /* Home page  */
 .review__grid {
@@ -82,6 +84,11 @@ body {
   padding-left: 5em;
   padding-right: 5em;
   margin-bottom: 5em;
+}
+
+.review__edit__delete__buttons {
+  display: flex;
+  justify-content: center;
 }
 
 .comment__form {

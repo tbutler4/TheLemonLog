@@ -27,7 +27,8 @@
 
 {% include 'partials/comments/add_comment_form.html' %}
 
-<div class='card-panel'>
+<div class='card-panel' style='padding-bottom:3rem;'>
+    <p> Total Comments: {{ review.comment_set.all|length }}</p>
     {% for comment in review.comment_set.all%}    
         <div class="comment__container">
             <div class='card-panel'>

@@ -5,7 +5,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import login
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
-from main_app.models import UserPhoto, Review 
+from main_app.models import UserPhoto, Review, Comment
 from main_app.forms import EditUserForm, UserForm
 from .aws_settings import S3_BASE_URL, BUCKET, s3, photo_file_extensions
 
@@ -31,12 +31,27 @@ def signup(request):
   return render(request, 'registration/signup.html', context)
 
 def profile(request, user_id):
+  reviews = Review.objects.all()
+  comments = Comment.objects.all()
   user = User.objects.get(id=user_id)
+  my_dict = {}
+  for comment in comments:
+    if request.user.id == comment.user_id:
+      review_product = comment.review.product
+      comment_review_id = comment.review.id
+      comment_text = comment.comment_text
+      if review_product not in my_dict:
+        my_dict.update({review_product: {'comments': [comment_text]}})
+      else:
+        my_dict[review_product]['comments'].append(comment_text)
+      if 'comment_review_id' not in my_dict[review_product]:
+        my_dict[review_product].update({'comment_review_id': comment_review_id})
+  print(my_dict)
   try:
     photo = UserPhoto.objects.get(user=user)
   except: 
     photo = UserPhoto(url='https://lemonlog-tc.s3-us-west-1.amazonaws.com/lemon.png', user=request.user)
-  return render(request, 'user/profile.html', {'photo':photo, 'user':user})
+  return render(request, 'user/profile.html', {'photo':photo, 'user':user, 'my_dict': my_dict})
 
 @login_required
 def edit_profile(request):
