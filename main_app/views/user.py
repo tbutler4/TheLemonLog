@@ -7,18 +7,8 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from main_app.models import UserPhoto, Review 
 from main_app.forms import EditUserForm, UserForm
+from .aws_settings import S3_BASE_URL, BUCKET, s3, photo_file_extensions
 
-#######################################
-# Amazon AWS info
-#######################################
-S3_BASE_URL = 'https://s3-us-west-1.amazonaws.com/'
-BUCKET = 'lemonlog-tc'
-
-s3 = boto3.client(
-  's3',
-  aws_access_key_id=os.getenv('AWS_ACCESS_KEY'),
-  aws_secret_access_key=os.getenv('AWS_SECRET_ACCESS_KEY'),
-)
 
 #######################################
 # User Sign Up/ Profile-related routes
@@ -64,21 +54,19 @@ def show_my_reviews(request):
 
 @login_required
 def add_user_photo(request):
+  error_message = 'Error uploading user photo, please try again'
   photo_file = request.FILES.get('photo-file', None)
   if photo_file:
-      # need a unique "key" for S3 / needs image file extension too
       key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
-      # just in case something goes wrong
       try:
           s3.upload_fileobj(photo_file, BUCKET, key)
-          # build the full url string
           url = f"{S3_BASE_URL}{BUCKET}/{key}"
       except:
-          print('An error occurred uploading file to S3')
+          error_message = 'An error occurred uploading file to remote server, please try again'
       try:
         photo = UserPhoto.objects.get(user=request.user)
       except:
         photo= UserPhoto(url=url, user=request.user)
       photo.url = url
       photo.save()
-  return redirect('profile', request.user.id)
+  return redirect('profile', request.user.id), {"error":error_message}

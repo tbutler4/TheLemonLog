@@ -1,0 +1,13 @@
+<div>
+    <div class="comment__form">
+        <form action="{% url 'add_comment' review.id %}" method="post">
+            {% csrf_token %}
+            <div class = "comment-field-wrapper">
+                {{form.comment_text.errors}}
+                {{form.comment_text}}
+            </div>
+            {{comment_form.as_p}}
+            <input type="submit" value="Add Comment">
+        </form>
+    </div>
+</div>
