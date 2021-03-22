@@ -104,3 +104,20 @@
     background-color:#26a69a;
     color: white;
 }
+
+@media screen and (max-width: 950px) {
+  .upload-photo {
+    display: flex;
+    flex-direction: column;
+  }
+  .profile__container {
+      background-color: green;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .upload-photo {
+    display: flex;
+    flex-direction: column;
+  }
+}

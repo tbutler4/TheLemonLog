@@ -1,6 +1,9 @@
 img{
     max-height:333px;
 }
+.about__container {
+    padding:5rem;
+}
 
 .team{
     display:flex;
