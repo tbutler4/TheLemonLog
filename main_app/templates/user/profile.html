@@ -1,11 +1,26 @@
 {% extends 'base.html' %}
-{% block content %}
+{% load static %}
+{% block extrahead %}
+<!-- UIkit CSS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/css/uikit.min.css" />
 
-<h1>Profile</h1>
+<!-- UIkit JS -->
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/js/uikit.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/uikit@3.6.18/dist/js/uikit-icons.min.js"></script>
+
+<!-- Static files -->
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css/' %}">
+<link type ="text/css" rel="stylesheet" href="{% static 'css/profile.css/'%}">
+{% endblock %}
+
+{% block content %}
+<br>
+<br>
+<br>
 <div class="profile__container">
-    <div class="card" style='border-radius: 30px;box-shadow: -1px -1px 8px 10px #888888;padding:2rem;'>
-        <div style='display:flex;justify-content:center;'>
-            <img style='max-height:50vh;' src="{{photo.url}}">
+    <div class="card">
+        <div class='profile-photo'>
+            <img src="{{photo.url}}">
         </div>
             {% if photo.url == "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"%}
                 {{value|linebreaks}}
@@ -14,46 +29,46 @@
             {% endif %}
             <form action="{% url 'add_user_photo' %}" enctype="multipart/form-data" method="POST" >
                 {% csrf_token %}
-                <div >
-                    <div style='font-weight:900;font-size:22px;text-align:left;margin-left:3.5rem;margin-bottom:1rem;'>
+                <div>
+                    <div class='category-label' id='edit-photo'>
                         <b>Edit Photo</b>
                     </div>
-                    <div style='display:flex;justify-content: center;align-items:baseline;'>
-                        <div style='width:14rem;text-align:center;'>
+                    <div class='upload-photo'>
+                        <div class='choose-file'>
                             <input type="file" name="photo-file" >
                         </div>
-                        <div style='width:15rem;text-align:center;'>
+                        <div class='submit-upload'>
                             <input type="submit" class="btn" value="Upload Photo">        
                         </div>
                     </div>
                 </div>
             </form>
-        <div style='display:flex;justify-content:space-evenly;margin-top:3rem;'>
-            <div style='font-weight:900;font-size:22px'>
+        <div class='profile-info'>
+            <div class='category-label'>
                 <b>My Profile</b>
             </div>
-            <div style='display:flex;'>
-                <div style='margin-right:1rem;font-size:14px;display:flex;flex-direction:column;'>
+            <div class='user-stats'>
+                <div class='user-stats__label'>
                     <b> Date joined:</b>
                     <b> Last Login:</b>
                 </div> 
-                <div style='font-size:14px;display:flex;flex-direction:column;'>
+                <div class='user-stats__info'>
                     <b>{{request.user.date_joined}}</b>
                     <b>{{request.user.last_login}}</b>
                 </div> 
             </div>
         </div>
-        <div style='margin-top:4rem;display:flex;justify-content:space-evenly;'>
-            <div style='width:10rem;text-align:center;'>
+        <div class='user-info'>
+            <div class='user-info__name'>
                 <b>{{request.user}}</b>
                 <hr>
             </div>
-            <div style='width:10rem;text-align:center;'>
-            <b>{{request.user.email}}</b> 
-            <hr>
+            <div class='user-info__email'>
+                <b>{{request.user.email}}</b> 
+                <hr>
             </div>    
         </div>
-        <div style='margin-top:2rem;display:flex;flex-direction:column;align-items:center;'>
+        <div class='user-action-buttons'>
             {% if request.user.id == user.id%}
                 <a href="{% url 'edit_profile' %}" class="waves-effect waves-light btn-large" >Edit Info</a>
                     {% if request.user.is_staff %}
@@ -63,22 +78,7 @@
         </div>
     </div>
 
-{% comment %} counting comments in review {% endcomment %}
-<div class="card" style='margin:auto;width:100%;'>
-    <h3>My Comments:</h3>
-    {% for key, values in my_dict.items %}
-        <div class="reviews__container">
-            <div class="card">
-                <span class="card-title"> Review: {{key}}</span>
-                {% for value in values.comments %}
-                    <div class="card" style='margin:auto;width:90%;'>
-                        <p id="comment__p"> {{value}}</p>
-                    </div>
-                {% endfor %}
-                <a href="{% url 'review_detail' values.comment_review_id %}">View</a>
-            </div>
-        </div>
-    {% endfor %}
-</div>
+    {% comment %} counting comments in review {% endcomment %}
+    {% include 'partials/comments/see-my-comments.html'%}
 </div>
 {% endblock %}

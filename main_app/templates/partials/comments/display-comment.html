@@ -1,0 +1,14 @@
+<div class="comment__heading">
+    {% if comment.user.userphoto.url%}
+        <img id='img' src="{{comment.user.userphoto.url}}" alt="profile-photo">
+    {% else %}
+        <img id='img' src="https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"alt="profile-photo">
+    {% endif %}
+    <p>{{comment.user.username}}</p>
+</div>
+<p>Created: {{comment.date|date:"M d Y"}}</p>
+<div class="comment">
+    <div class="comment__text">
+        <p id="comment__p"> {{comment.comment_text}}</p>
+    </div>
+</div>

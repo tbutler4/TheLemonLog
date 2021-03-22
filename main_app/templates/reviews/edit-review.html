@@ -1,0 +1,14 @@
+{% extends 'base.html'%}
+{% block content%}
+
+{% include 'partials/message-error.html'%}
+
+<form class="review-form"action="{% url 'edit_review' review.id %}"enctype="multipart/form-data" method="post">
+    {% csrf_token %}
+    {{review_form.as_p}}
+    <input type="file" name="photo-file">
+    <br><br>
+    <input class="btn" type="submit" value="Edit Review">
+</form>
+
+{% endblock %}

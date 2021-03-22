@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block content %}
+{% load static %}
 
-<h1>Home</h1>
 <hr />
 
 <div class="review__grid">
@@ -16,7 +16,7 @@
                     <div class="card-content">
                         <p>{{ review.description|slice:44 }}...</p>
                     </div>
-                    <div class="card-action" style='border-style: none;'>
+                    <div class="card-action" style='border-style: none; color:yellow;'>
                         <a href="{% url 'review_detail' review.id %}">Read More!?</a>
                     </div>
                 </div>
