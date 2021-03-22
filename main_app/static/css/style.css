@@ -1,15 +1,14 @@
 body {
-  background-image: url("https://image.shutterstock.com/image-illustration/white-hexagonal-tech-background-texture-600w-1363110086.jpg");
+  background-image: url("../../images/wp2457240-yellow-black-wallpapers.jpg");
   background-attachment: fixed;
   background-position: center;
-  background-repeat: no-repeat;
   background-size: cover;
-  min-height: 100vh;
+  min-height:100vh;
 }
 .container{
   width: 100%;
   background-color: white;
-  height: 80vmax;
+  min-height:100vh;
 }
 /* Home page  */
 .review__grid {
@@ -126,12 +125,10 @@ body {
 
 .comment__text {
   display: flex;
-  justify-content: center;
 }
 
 .comment__buttons {
   display: flex;
-  justify-content: center;
 }
 
 #comment__edit {
@@ -154,3 +151,13 @@ body {
 .navbar-fixed{
   background-image: url("../images/landing.png");
 }
+
+.btn{
+  background-color:yellow;
+  color:black;
+}
+
+.review-form{
+  margin: 10px;
+}
+
