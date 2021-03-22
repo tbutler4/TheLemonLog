@@ -47,13 +47,16 @@ def new_review(request):
 @login_required
 def edit_review(request, review_id):
   review = Review.objects.get(id=review_id)
+  url = review.photo
   if request.user.id == review.user.id or request.user.is_superuser:
     review_form = ReviewForm(request.POST or None, instance = review)
     photo_file = request.FILES.get('photo-file', None)
     if photo_file:
-        if photo_file.name[photo_file.name.rfind('.'):] not in photo_file_extensions:
-          messages.error(request, 'Unsupported image file. Please try reuploading in the following formats: .png, .jpg, .jpeg, .webp')
-          return redirect('edit_review', review_id)
+      #  previuosly f photo_file.name[photo_file.name.rfind('.'):] not in photo_file_extensions:
+        # if photo_file not in photo_file_extensions:
+        #   print(photo_file)
+        #   messages.error(request, 'Unsupported image file. Please try reuploading in the following formats: .png, .jpg, .jpeg, .webp')
+        #   return redirect('edit_review', review_id)
         key = uuid.uuid4().hex[:6] + photo_file.name[photo_file.name.rfind('.'):]
         try:
             s3.upload_fileobj(photo_file, BUCKET, key)
