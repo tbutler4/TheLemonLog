@@ -1,3 +1,21 @@
 img{
     max-height:333px;
 }
+
+.team{
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap:wrap;
+}
+
+.team-heading{
+    width:100%;
+}
+
+.terrence{
+    flex: 1 0 50%;
+}
+.cindy{
+    flex: 1 0 50%;
+}
