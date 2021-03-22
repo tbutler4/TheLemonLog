@@ -83,4 +83,4 @@ def add_user_photo(request):
         photo= UserPhoto(url=url, user=request.user)
       photo.url = url
       photo.save()
-  return redirect('profile', request.user.id), {"error":error_message}
+  return redirect('profile', user_id=request.user.id)

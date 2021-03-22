@@ -14,8 +14,9 @@
 {% endblock %}
 
 {% block content %}
-
-<h1>Profile</h1>
+<br>
+<br>
+<br>
 <div class="profile__container">
     <div class="card">
         <div class='profile-photo'>
@@ -57,17 +58,17 @@
                 </div> 
             </div>
         </div>
-        <div style='margin-top:4rem;display:flex;justify-content:space-evenly;'>
-            <div style='width:10rem;text-align:center;'>
+        <div class='user-info'>
+            <div class='user-info__name'>
                 <b>{{request.user}}</b>
                 <hr>
             </div>
-            <div style='width:10rem;text-align:center;'>
+            <div class='user-info__email'>
                 <b>{{request.user.email}}</b> 
                 <hr>
             </div>    
         </div>
-        <div style='margin-top:2rem;display:flex;flex-direction:column;align-items:center;'>
+        <div class='user-action-buttons'>
             {% if request.user.id == user.id%}
                 <a href="{% url 'edit_profile' %}" class="waves-effect waves-light btn-large" >Edit Info</a>
                     {% if request.user.is_staff %}

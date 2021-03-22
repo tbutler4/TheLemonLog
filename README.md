@@ -88,32 +88,43 @@ An admin user should be able to:
 * Admins should be able to upload and host their own image files to use in reviews on the site
 
 ## Screenshots
-![Landing Page Screenshot]()
+![Landing Page Screenshot](main_app/static/css/images/screenshots/landing-page-ss.png)
 
-![Review Detail Page Screenshot]()
+![Profile Page Screenshot](main_app/static/css/images/screenshots/profile-page-ss.png)
 
-![Profile Page Screenshot]()
+![Signup Page Screenshot](main_app/static/css/images/screenshots/signup-page-ss.png)
 
-![SignUp Page Screenshot]()
+![Add New Reviews Page Screenshot](main_app/static/css/images/screenshots/add-new-reviews-page-ss.png)
 
+![My Comments Page Screenshot](main_app/static/css/images/screenshots/my-comments-ss.png)
 
+![Review Detail Page Screenshot](main_app/static/css/images/screenshots/review-details-page-ss.png)
 
-
+![Comments Page Screenshot](main_app/static/css/images/screenshots/comments-page-ss.png)
  
+
 ## Wireframes
 
-![Wireframe of Landing Page](main_app/static/css/images/image-1.png)
+![Wireframe of Landing Page](main_app/static/css/images/wireframes/image-1.png)
 
-![Wireframe of Review Detail Page](main_app/static/css/images/image-2.png)
+![Wireframe of Review Detail Page](main_app/static/css/images/wireframes/image-2.png)
 
-![Wireframe of Adding a Comment on Reviews](main_app/static/css/images/image-3.png)
+![Wireframe of Adding a Comment on Reviews](main_app/static/css/images/wireframes/image-3.png)
 
-![Wireframe of Profile Page](main_app/static/css/images/image-4.png)
-
+![Wireframe of Profile Page](main_app/static/css/images/wireframes/image-4.png)
 
 
 ## Unsolved problems/Major Hurdles
+There were no significant major hurdles in this project. However, there are many design issues that have yet to be addressed. For instance, the website is not responsive, and some of the UI design requires some tweaking. We unfortunately had an issue with getting one of our modals to work with Materialize, which was the original framework we were using, so we added in UI Kit. However, we did not have enough time to go back and remove all the references to Materialize. This caused some compatibility issues and we had to do inline-styling to override and ensure that the styling was how we wanted it to be. 
 
+On the backend side, there is one issue where we could not pass individual validation error messages to the front-end, but the website nevertheless lets the user the know that something had went wrong.
 
 ## Future Development
+Front-end Design:
+UI frameworks will be simplified such that we will only be using one framework, and the in-line styling will be moved into CSS files. A lot of code refactoring and organization will be necessary.
+We were also given design templates for the UX designer that we were working with, but we did not have enough time to fully implement the design and had to abandon the design concepts.
+
+Back-end and User Experience Improvements:
+Validation error messages for each individual validation error should be displayed. Some of the bonus features that were listed in the sprints would improve user experience significantly.
+
 

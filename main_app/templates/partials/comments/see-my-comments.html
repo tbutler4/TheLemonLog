@@ -1,0 +1,14 @@
+<div class="card" style='margin:auto;width:100%;'>
+    <h3>My Comments:</h3>
+    {% for key, values in my_comments_dict.items %}
+        <div class="reviews__container">
+            <div class="card" style="padding-left:10px;">
+                <span class="card-title"><a style="text-decoration:none; color: black;"href="{% url 'review_detail' values.comment_review_id %}"> Review: {{key}}</a></span>
+                {% for value in values.comments %}
+                    <p id="comment__p">{{value}}</p>
+                    <hr>
+                {% endfor %}
+            </div>
+        </div>
+    {% endfor %}
+</div>
