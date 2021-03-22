@@ -1,1 +1,1 @@
-web: gunicorn TheLemonLog.wsgi
+web: gunicorn lemonlog_project.wsgi
