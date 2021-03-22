@@ -88,30 +88,30 @@ An admin user should be able to:
 * Admins should be able to upload and host their own image files to use in reviews on the site
 
 ## Screenshots
-![Landing Page Screenshot](main_app/static/css/images/screenshots/landing-page-ss.png)
+![Landing Page Screenshot](main_app/static/images/screenshots/landing-page-ss.png)
 
-![Profile Page Screenshot](main_app/static/css/images/screenshots/profile-page-ss.png)
+![Profile Page Screenshot](main_app/static/images/screenshots/profile-page-ss.png)
 
-![Signup Page Screenshot](main_app/static/css/images/screenshots/signup-page-ss.png)
+![Signup Page Screenshot](main_app/static/images/screenshots/signup-page-ss.png)
 
-![Add New Reviews Page Screenshot](main_app/static/css/images/screenshots/add-new-reviews-page-ss.png)
+![Add New Reviews Page Screenshot](main_app/static/images/screenshots/add-new-reviews-page-ss.png)
 
-![My Comments Page Screenshot](main_app/static/css/images/screenshots/my-comments-ss.png)
+![My Comments Page Screenshot](main_app/static/images/screenshots/my-comments-ss.png)
 
-![Review Detail Page Screenshot](main_app/static/css/images/screenshots/review-details-page-ss.png)
+![Review Detail Page Screenshot](main_app/static/images/screenshots/review-details-page-ss.png)
 
-![Comments Page Screenshot](main_app/static/css/images/screenshots/comments-page-ss.png)
+![Comments Page Screenshot](main_app/static/images/screenshots/comments-page-ss.png)
  
 
 ## Wireframes
 
-![Wireframe of Landing Page](main_app/static/css/images/wireframes/image-1.png)
+![Wireframe of Landing Page](main_app/static/images/wireframes/image-1.png)
 
-![Wireframe of Review Detail Page](main_app/static/css/images/wireframes/image-2.png)
+![Wireframe of Review Detail Page](main_app/static/images/wireframes/image-2.png)
 
-![Wireframe of Adding a Comment on Reviews](main_app/static/css/images/wireframes/image-3.png)
+![Wireframe of Adding a Comment on Reviews](main_app/static/images/wireframes/image-3.png)
 
-![Wireframe of Profile Page](main_app/static/css/images/wireframes/image-4.png)
+![Wireframe of Profile Page](main_app/static/images/wireframes/image-4.png)
 
 
 ## Unsolved problems/Major Hurdles
