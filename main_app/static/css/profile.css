@@ -66,3 +66,36 @@
     display:flex;
     flex-direction:column;
 }
+
+.user-info{
+    margin-top:4rem;
+    display:flex;
+    justify-content:space-evenly;
+}
+
+.user-info__name{
+    width:10rem;
+    text-align:center;
+}
+
+.user-info__email{
+    width:10rem;
+    text-align:center;
+}
+
+.user-action-buttons{
+    margin-top:2rem;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.my-reviews{
+    margin:auto;
+    width:100%;
+}
+
+.my-comment{
+    margin:auto;
+    width:90%;
+}
