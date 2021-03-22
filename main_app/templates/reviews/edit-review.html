@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
 
-{% include 'partials/message_error.html'%}
+{% include 'partials/message-error.html'%}
 
 <form action="{% url 'edit_review' review.id %}"enctype="multipart/form-data" method="post">
     {% csrf_token %}

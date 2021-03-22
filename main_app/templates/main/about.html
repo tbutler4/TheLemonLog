@@ -1,0 +1,29 @@
+{% extends 'base.html'%}
+{% block extrahead%}
+{%load static%}
+<link rel="stylesheet" type='text/css' href="{% static 'css/about.css/'%}">
+
+{%endblock extrahead%}
+
+{% block content %}
+
+<h3> Lemon Log </h3> 
+<p>I am a technology enthusiast with a passion for learning and solving problems. Proven to deliver results in an accelerated environment. My emphasis is creating for healthier communities and bringing people closer with updated technologies.</p>
+
+
+<hr>
+
+<h3>Meet the Team </h3>
+
+<img class='team-photo'src='https://lemonlog-tc.s3-us-west-1.amazonaws.com/terrencebutler.png'>
+<h1> Terrence Butler </h1>
+
+
+<p>I am a technology enthusiast with a passion for learning and solving problems. Proven to deliver results in an accelerated environment. My emphasis is creating for healthier communities and bringing people closer with updated technologies. </p>
+
+<img class='team-photo' src="{% static 'images/cindy-profile.png/'%}">
+<h1> Cindy Mui </h1>
+
+<p>Hi! I am </p>
+
+{% endblock %}

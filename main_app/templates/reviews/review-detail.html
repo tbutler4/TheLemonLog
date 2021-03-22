@@ -4,12 +4,12 @@
     <div class="review__name"><p>{{ review.product }}</div>
 </div>
 
-{% include 'partials/message_error.html'%}
+{% include 'partials/message-error.html'%}
 
 <div class='review__details'>
     <div class='review__header'>
         <p>Author: {{review.user}}</p>
-        {% include 'partials/reviews/review_rating.html' %}
+        {% include 'partials/reviews/review-rating.html' %}
     </div>
     <div class="review__title">
         <p> {{review.title|title}} </p>
@@ -22,18 +22,18 @@
 
 
 {% if request.user.is_authenticated and request.user.is_staff and request.user.id == review.user.id or request.user.is_superuser%}
-    {% include 'partials/reviews/edit_delete_reviews.html'%}
+    {% include 'partials/reviews/edit-delete-reviews.html'%}
 {%endif%}
 
-{% include 'partials/comments/add_comment_form.html' %}
+{% include 'partials/comments/add-comment-form.html' %}
 
 <div class='card-panel' style='padding-bottom:3rem;'>
     <p> Total Comments: {{ review.comment_set.all|length }}</p>
     {% for comment in review.comment_set.all%}    
         <div class="comment__container">
             <div class='card-panel'>
-                {% include 'partials/comments/display_comment.html'%}
-                {% include 'partials/comments/edit_delete_comment.html' %}
+                {% include 'partials/comments/display-comment.html'%}
+                {% include 'partials/comments/edit-delete-comment.html' %}
             </div>
         </div>
     {% endfor %}

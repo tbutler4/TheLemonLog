@@ -18,7 +18,7 @@ def review_detail(request, review_id):
     'review':review, 
     'comment_form':comment_form
   }
-  return render(request, 'reviews/review_detail.html', context)
+  return render(request, 'reviews/review-detail.html', context)
 
 @login_required
 def new_review(request):
@@ -42,7 +42,7 @@ def new_review(request):
     review.save()
     return redirect('home')
   else:
-    return render(request, 'reviews/new_review.html', {'review_form':review_form})
+    return render(request, 'reviews/new-review.html', {'review_form':review_form})
 
 @login_required
 def edit_review(request, review_id):
@@ -67,7 +67,7 @@ def edit_review(request, review_id):
       review.save()
       return redirect('review_detail', review_id)
     else:
-      return render(request, 'reviews/edit_review.html', {'review_form':review_form, 'review':review})
+      return render(request, 'reviews/edit-review.html', {'review_form':review_form, 'review':review})
   else:
     messages.error(request, 'You are not authorized to edit this review!')
     return redirect('review_detail', review_id)

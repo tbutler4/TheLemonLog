@@ -1,7 +1,7 @@
 {% extends 'base.html'%}
 {% block content%}
 
-{% include 'partials/message_error.html'%}
+{% include 'partials/message-error.html'%}
 
 <form action="{% url 'add_comment' review.id %}" method="post">
     {% csrf_token %}

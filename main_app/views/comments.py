@@ -38,7 +38,7 @@ def edit_comment(request, review_id, comment_id):
       comment_form.save()
       return redirect('review_detail', review_id=review_id)
     else:
-      return render(request, 'comments/edit_comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
+      return render(request, 'comments/edit-comment.html', {'comment_form':comment_form, 'review':review, 'comment':comment})
   else:
     messages.error(request, 'Sorry, you are not authorized to edit this comment')
     return redirect('review_detail', review_id)

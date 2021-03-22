@@ -34,24 +34,23 @@ def profile(request, user_id):
   reviews = Review.objects.all()
   comments = Comment.objects.all()
   user = User.objects.get(id=user_id)
-  my_dict = {}
+  my_comments_dict = {}
   for comment in comments:
     if request.user.id == comment.user_id:
       review_product = comment.review.product
       comment_review_id = comment.review.id
       comment_text = comment.comment_text
-      if review_product not in my_dict:
-        my_dict.update({review_product: {'comments': [comment_text]}})
+      if review_product not in my_comments_dict:
+        my_comments_dict.update({review_product: {'comments': [comment_text]}})
       else:
-        my_dict[review_product]['comments'].append(comment_text)
-      if 'comment_review_id' not in my_dict[review_product]:
-        my_dict[review_product].update({'comment_review_id': comment_review_id})
-  print(my_dict)
+        my_comments_dict[review_product]['comments'].append(comment_text)
+      if 'comment_review_id' not in my_comments_dict[review_product]:
+        my_comments_dict[review_product].update({'comment_review_id': comment_review_id})
   try:
     photo = UserPhoto.objects.get(user=user)
   except: 
     photo = UserPhoto(url='https://lemonlog-tc.s3-us-west-1.amazonaws.com/lemon.png', user=request.user)
-  return render(request, 'user/profile.html', {'photo':photo, 'user':user, 'my_dict': my_dict})
+  return render(request, 'user/profile.html', {'photo':photo, 'user':user, 'my_comments_dict': my_comments_dict})
 
 @login_required
 def edit_profile(request):
@@ -65,7 +64,7 @@ def edit_profile(request):
 @login_required
 def show_my_reviews(request):
   reviews = Review.objects.filter(user=request.user)
-  return render(request, 'user/user_review.html', {'reviews':reviews})
+  return render(request, 'user/user-review.html', {'reviews':reviews})
 
 @login_required
 def add_user_photo(request):
