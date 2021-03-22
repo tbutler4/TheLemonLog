@@ -26,7 +26,6 @@ s3transfer==0.3.4
 six==1.15.0
 sqlparse==0.4.1
 timg==1.1.5
-traitlets==5.0.5
 urllib3==1.26.4
 wcwidth==0.2.5
 whitenoise==5.2.0
