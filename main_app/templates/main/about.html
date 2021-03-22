@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% block extrahead %}
+{%load static%}
+<link rel="stylesheet" type='text/css' href="{% static 'css/about.css/'%}">
+
+{% endblock extrahead %}
+
+{% block content %}
+<div class="about__container">
+    <h3> Lemon Log </h3> 
+    <p>At Lemon Log, we offer high-quality, professional reviews of all things technology. We aim to be the new one-stop-shop review site that will replace The Verge. </p>
+    <hr>
+    <div class='team'>
+        <h3 class="team-heading">Meet the Team </h3>
+        <div class="team__container">
+            <div class='terrence'>
+                <img class='team-photo'src='https://lemonlog-tc.s3-us-west-1.amazonaws.com/terrencebutler.png'>
+                <h1> Terrence Butler </h1>
+                <p>I am a technology enthusiast with a passion for learning and solving problems. Proven to deliver results in an accelerated environment. My emphasis is creating for healthier communities and bringing people closer with updated technologies. </p>
+            </div>
+            <div class='cindy'>
+                <img class='team-photo' src="{% static 'images/cindy-profile.png/'%}">
+                <h1> Cindy Mui </h1>
+                <p>I am a recent college grad with a great interest in healthcare technology. I love exploring big data ideas, and in my free time, you can usually find me checking out new restaurants with friends like the foodie that I am (temporarily on hold until the end of pandemic)! </p>
+            </div>  
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

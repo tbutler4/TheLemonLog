@@ -1,0 +1,35 @@
+{% extends 'base.html' %}
+{% block content %}
+{% load static %}
+<div class="home__banner">
+    <div class="home__banner_text">
+        The Lemo&#127819;n Log
+    </div>
+</div>
+
+<div class="review__grid">
+    {% for review in reviews%}
+        <div class="reviews__container">
+            <div class="card" style='background-color:#f2ea09;padding:.5rem;'>
+                <div class="card-image">
+                    <img style="max-height:20rem" src={{review.photo}}>
+                    <span class="card-title">{{review.product}}</span>
+                </div>
+                <div style='display:flex;align-items:baseline;justify-content:space-between'>
+                    <div class="card-content">
+                        <p>{{ review.description|slice:44 }}...</p>
+                    </div>
+                    <div class="card-action" style='border-style: none; color:yellow;'>
+                        <a href="{% url 'review_detail' review.id %}" class="waves-effect waves-light btn" style='background-color:black;color:white;'>Read More!?</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+    
+    
+
+<hr />
+{% endblock %}

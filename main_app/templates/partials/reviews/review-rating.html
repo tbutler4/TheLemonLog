@@ -1,0 +1,18 @@
+{% if  review.rating == 5 %}
+<p>Rating: 🍋🍋🍋🍋🍋</p>
+{% endif %}
+{% if  review.rating == 4 %}
+<p>Rating: 🍋🍋🍋🍋</p>
+{% endif %}
+{% if  review.rating == 3 %}
+<p>Rating: 🍋🍋🍋</p>
+{% endif %}
+{% if  review.rating == 2 %}
+<p>Rating: 🍋🍋</p>
+{% endif %}
+{% if  review.rating == 1 %}
+<p>Rating: 🍋</p>
+{% endif %}
+<p> Published: {{review.date|date:"M d Y"}} </p>
+
+

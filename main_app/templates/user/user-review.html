@@ -1,0 +1,27 @@
+{% extends 'base.html'%}
+{%block content%}
+
+<a href="{% url 'new_review' %}" class="waves-effect waves-light btn-large" style='left:35vw;margin-top:3rem;'>Add New Review</a>
+
+<div class="review__grid">
+    {% for review in reviews%}
+        <div class="reviews__container">
+            <div class="card">
+                <div class="card-image">
+                    <img style="max-height:20rem" src={{review.photo}}>
+                    <span class="card-title">{{review.title}}</span>
+                </div>
+                <div style='display:flex;align-items:baseline;justify-content:space-between'>
+                    <div class="card-content">
+                        <p>{{ review.description|slice:44 }}...</p>
+                    </div>
+                    <div class="card-action" style='border-style: none;'>
+                        <a href="{% url 'review_detail' review.id %}">View</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock%}
