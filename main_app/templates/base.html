@@ -31,7 +31,7 @@
         </ul>
         {% if request.user.is_authenticated%}
           <ul class="right">
-            <li><a href="{% url 'profile' request.user.id %}"class="black-text">Profile</a></li>
+            <li><a href="{% url 'profile' request.user.id %}"class="yellow-text">Profile</a></li>
           </ul>
           <ul class="right">
             <li><a href="{% url 'logout' %}" class="yellow-text">Log Out</a></li>

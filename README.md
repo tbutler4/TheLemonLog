@@ -78,6 +78,7 @@ A user should be able to:
     * A user MUST be logged in to create/update/destroy resources.
     * A user may only edit their own profile and edit/delete their own comments.
 * A user should be able to see a list of review titles they've contributed comments to, on their public profile
+* A user can see the number of comments on each review
 
 ### Sprint 4: Admin Users
 
@@ -87,13 +88,17 @@ An admin user should be able to:
 * Admins should be able to upload and host their own image files to use in reviews on the site
 
 ## Screenshots
-![SignUp Page Screenshot]()
+![Landing Page Screenshot]()
 
-![Detail Page Screenshot]()
+![Review Detail Page Screenshot]()
 
 ![Profile Page Screenshot]()
 
-![Landing Page Screenshot]()
+![SignUp Page Screenshot]()
+
+
+
+
  
 ## Wireframes
 
